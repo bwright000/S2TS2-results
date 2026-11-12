@@ -12,6 +12,7 @@
   main { max-width:1500px; margin:0 auto; display:flex; flex-direction:column; gap:34px; }
   h1 { font-size:26px; margin:0 0 4px; }
   h2 { font-size:18px; margin:0 0 4px; }
+  h2.seq { font-size:22px; border-top:1px solid var(--line); padding-top:22px; margin-bottom:-22px; }
   p { margin:0; color:var(--mute); }
   section { display:flex; flex-direction:column; gap:8px; }
   .scroll { overflow-x:auto; }
@@ -24,10 +25,12 @@
 <main>
   <header>
     <h1>S2TS2 ablation clips</h1>
-    <p>StereoMIS P2_2, 200 frames, new code (f682907), A100, seed 0. Panels left to right: full model, Gaussians instead of triangles,
-       plain MLP warp instead of the instance-aware warp, motion decomposition off.</p>
-    <nav><a href="#renders">Renders</a><a href="#errors">Error vs input</a><a href="#diff">Difference from full model</a><a href="#depth">Depth</a></nav>
+    <p>New code (f682907), seed 0. Each clip shows the full model beside its ablations.</p>
+    <nav><a href="#p22">StereoMIS P2_2</a><a href="#c3">CRCD++ C3_001</a></nav>
   </header>
+
+  <h2 class="seq" id="p22">StereoMIS P2_2 &middot; 200 frames &middot; A100</h2>
+  <p>Arms: full model, Gaussians instead of triangles, plain MLP warp instead of the instance-aware warp, motion decomposition off.</p>
 
   <section id="renders">
     <h2>Renders</h2>
@@ -52,6 +55,34 @@
     <p>Shared colour scale, warm is near.</p>
     <div class="scroll"><video src="clips/depth.mp4" autoplay loop muted playsinline controls></video></div>
   </section>
+
+  <h2 class="seq" id="c3">CRCD++ C3_001 &middot; frames 0&ndash;239 &middot; L4</h2>
+  <p>Arms: full model, Gaussians instead of triangles, motion decomposition off.</p>
+
+  <section id="c3_renders">
+    <h2>Renders</h2>
+    <p>Input frame first, then each arm's final render.</p>
+    <div class="scroll"><video src="clips/c3_renders.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="c3_errors">
+    <h2>Error vs input</h2>
+    <p>Absolute colour error against the input frame, same scale in every panel (brighter is worse).</p>
+    <div class="scroll"><video src="clips/c3_errors.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="c3_diff">
+    <h2>Difference from the full model</h2>
+    <p>Full model's render first, then how each ablation's render differs from it.</p>
+    <div class="scroll"><video src="clips/c3_diff_vs_full.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="c3_depth">
+    <h2>Rendered depth</h2>
+    <p>Shared colour scale, warm is near.</p>
+    <div class="scroll"><video src="clips/c3_depth.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
 </main>
 </body>
 </html>
