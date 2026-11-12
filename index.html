@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>S2TS2 ablation clips</title>
+<style>
+  :root { --bg:#0f1318; --fg:#e7ebf0; --mute:#98a3b0; --line:#2a323d; }
+  @media (prefers-color-scheme: light) { :root { --bg:#f6f7f9; --fg:#161b22; --mute:#5b6572; --line:#dde1e7; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 system-ui, "Segoe UI", sans-serif; padding:28px 16px 56px; }
+  main { max-width:1500px; margin:0 auto; display:flex; flex-direction:column; gap:34px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  h2 { font-size:18px; margin:0 0 4px; }
+  p { margin:0; color:var(--mute); }
+  section { display:flex; flex-direction:column; gap:8px; }
+  .scroll { overflow-x:auto; }
+  video { display:block; width:100%; min-width:900px; background:#000; border-radius:6px; }
+  nav { display:flex; flex-wrap:wrap; gap:6px 18px; border-top:1px solid var(--line); padding-top:10px; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>S2TS2 ablation clips</h1>
+    <p>StereoMIS P2_2, 200 frames, new code (f682907), A100, seed 0. Panels left to right: full model, Gaussians instead of triangles,
+       plain MLP warp instead of the instance-aware warp, motion decomposition off.</p>
+    <nav><a href="#renders">Renders</a><a href="#errors">Error vs input</a><a href="#diff">Difference from full model</a><a href="#depth">Depth</a></nav>
+  </header>
+
+  <section id="renders">
+    <h2>Renders</h2>
+    <p>Input frame first, then each arm's final render.</p>
+    <div class="scroll"><video src="clips/renders.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="errors">
+    <h2>Error vs input</h2>
+    <p>Absolute colour error against the input frame, same scale in every panel (brighter is worse).</p>
+    <div class="scroll"><video src="clips/errors.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="diff">
+    <h2>Difference from the full model</h2>
+    <p>Full model's render first, then how each ablation's render differs from it.</p>
+    <div class="scroll"><video src="clips/diff_vs_full.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+
+  <section id="depth">
+    <h2>Rendered depth</h2>
+    <p>Shared colour scale, warm is near.</p>
+    <div class="scroll"><video src="clips/depth.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+</main>
+</body>
+</html>
