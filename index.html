@@ -19,6 +19,12 @@
   video { display:block; width:100%; min-width:900px; background:#000; border-radius:6px; }
   nav { display:flex; flex-wrap:wrap; gap:6px 18px; border-top:1px solid var(--line); padding-top:10px; }
   a { color:inherit; }
+  table { border-collapse:collapse; width:100%; font-size:14px; font-variant-numeric:tabular-nums; }
+  th, td { padding:8px 12px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap; }
+  thead th { font-weight:500; font-size:12.5px; color:var(--mute); }
+  tbody th { font-weight:500; }
+  .n { text-align:right; } .c { text-align:center; } .off { color:var(--mute); } .b { font-weight:700; }
+  .note { font-size:13px; }
 </style>
 </head>
 <body>
@@ -31,6 +37,8 @@
 
   <h2 class="seq" id="p22">StereoMIS P2_2 &middot; 200 frames &middot; A100</h2>
   <p>Arms: full model, Gaussians instead of triangles, plain MLP warp instead of the instance-aware warp, motion decomposition off.</p>
+  <div class="scroll"><table><thead><tr><th>Arm</th><th class="c">Triangles</th><th class="c">Instance-aware warp</th><th class="c">Decomposition</th><th class="n">PSNR &uarr;</th><th class="n">SSIM &uarr;</th><th class="n">LPIPS &darr;</th><th class="n">Tissue PSNR &uarr;</th><th class="n">Tool PSNR &uarr;</th><th class="n">ATE mm &darr;</th><th class="n">Depth L1 mm &darr;</th></tr></thead><tbody><tr><th scope="row">Full model</th><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="n">23.62</td><td class="n">0.707</td><td class="n">0.329</td><td class="n">23.80</td><td class="n">24.19</td><td class="n">2.79</td><td class="n">3.20</td></tr><tr><th scope="row">Gaussians instead of triangles</th><td class="c off">&#10007;</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="n b">24.01</td><td class="n b">0.719</td><td class="n">0.351</td><td class="n">24.07</td><td class="n b">25.43</td><td class="n">2.63</td><td class="n b">2.02</td></tr><tr><th scope="row">Plain MLP warp</th><td class="c">&#10003;</td><td class="c off">&#10007;</td><td class="c">&#10003;</td><td class="n">23.61</td><td class="n">0.705</td><td class="n">0.327</td><td class="n">23.78</td><td class="n">24.31</td><td class="n">2.80</td><td class="n">3.50</td></tr><tr><th scope="row">Decomposition off</th><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c off">&#10007;</td><td class="n">23.71</td><td class="n">0.702</td><td class="n b">0.306</td><td class="n b">24.73</td><td class="n">21.55</td><td class="n b">1.84</td><td class="n">2.85</td></tr></tbody></table></div>
+  <p class="note">Final renders and final trajectory, one run per arm (seed 0); best value in each column in bold. Tissue and tool PSNR split the same renders by the dataset's tool labels. Depth L1 is against the stereo depth the model was given (StereoMIS has no depth ground truth). ATE is after Sim3 alignment.</p>
 
   <section id="renders">
     <h2>Renders</h2>
@@ -58,6 +66,8 @@
 
   <h2 class="seq" id="c3">CRCD++ C3_001 &middot; frames 0&ndash;239 &middot; L4</h2>
   <p>Arms: full model, Gaussians instead of triangles, motion decomposition off.</p>
+  <div class="scroll"><table><thead><tr><th>Arm</th><th class="c">Triangles</th><th class="c">Instance-aware warp</th><th class="c">Decomposition</th><th class="n">PSNR &uarr;</th><th class="n">SSIM &uarr;</th><th class="n">LPIPS &darr;</th><th class="n">Tissue PSNR &uarr;</th><th class="n">Tool PSNR &uarr;</th><th class="n">ATE mm &darr;</th><th class="n">Depth L1 mm &darr;</th></tr></thead><tbody><tr><th scope="row">Full model</th><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="n">25.60</td><td class="n">0.902</td><td class="n">0.228</td><td class="n">28.07</td><td class="n">20.17</td><td class="n b">1.76</td><td class="n">5.63</td></tr><tr><th scope="row">Gaussians instead of triangles</th><td class="c off">&#10007;</td><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="n b">25.85</td><td class="n b">0.907</td><td class="n">0.247</td><td class="n">27.96</td><td class="n b">21.08</td><td class="n">1.80</td><td class="n b">4.80</td></tr><tr><th scope="row">Decomposition off</th><td class="c">&#10003;</td><td class="c">&#10003;</td><td class="c off">&#10007;</td><td class="n">24.07</td><td class="n">0.878</td><td class="n b">0.213</td><td class="n b">28.14</td><td class="n">16.90</td><td class="n">1.78</td><td class="n">5.32</td></tr></tbody></table></div>
+  <p class="note">Final renders and final trajectory, one run per arm (seed 0); best value in each column in bold. Tissue and tool PSNR split the same renders by the dataset's tool labels. Depth L1 is against the stereo depth the model was given. ATE is after Sim3 alignment. Run on an L4, so quality numbers only. The plain-MLP warp arm was not run on this sequence.</p>
 
   <section id="c3_renders">
     <h2>Renders</h2>
