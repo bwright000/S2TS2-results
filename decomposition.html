@@ -29,7 +29,7 @@
   <header>
     <h1>Motion decomposition on vs off</h1>
     <p>Every sequence run with and without motion decomposition on the new code (f682907), seed 0. Each clip plays the sequence twice side by side: the full model on the left, decomposition off on the right. Each side shows the input, the final render, the pixels used for tracking and the camera path against ground truth; the table under the video gives the final results for both.</p>
-    <nav><a href="#stereomis">StereoMIS</a><a href="#crcdpp">CRCD++</a><a href="index.html">All ablations</a></nav>
+    <nav><a href="#stereomis">StereoMIS</a><a href="#crcdpp">CRCD++</a><a href="#imed">iMED</a><a href="index.html">All ablations</a></nav>
   </header>
   <div class="key">
     <span><span class="sw" style="background:#469646"></span>Green tint: pixel used for tracking</span>
@@ -76,6 +76,33 @@
     <h3>CRCD++ E3_005</h3>
     <p>265 frames, ground-truth labels, L4. Neither arm follows the ground-truth loop.</p>
     <div class="scroll"><video src="clips/decomp_e3_005_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <h2 class="seq" id="imed">iMED</h2>
+  <p>Online segmenter. The input panel is taken from each run's preview video. No instrument masks are available locally, so the tissue and tool columns are empty; S7sc5_tool2 and S7sc10_tool1 are static-camera clips, so they have no ATE or RPE and their trajectory panel shows the raw estimate.</p>
+  <section id="s7sc11_circ">
+    <h3>iMED S7sc11_circ</h3>
+    <p>200 frames, online segmenter, A100. </p>
+    <div class="scroll"><video src="clips/decomp_s7sc11_circ_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="s7sc10_circ">
+    <h3>iMED S7sc10_circ</h3>
+    <p>200 frames, online segmenter, A100. </p>
+    <div class="scroll"><video src="clips/decomp_s7sc10_circ_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="s7sc3_zoom">
+    <h3>iMED S7sc3_zoom</h3>
+    <p>200 frames, online segmenter, A100. </p>
+    <div class="scroll"><video src="clips/decomp_s7sc3_zoom_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="s7sc5_tool2">
+    <h3>iMED S7sc5_tool2</h3>
+    <p>200 frames, online segmenter, A100. </p>
+    <div class="scroll"><video src="clips/decomp_s7sc5_tool2_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="s7sc10_tool1">
+    <h3>iMED S7sc10_tool1</h3>
+    <p>200 frames, online segmenter, A100. </p>
+    <div class="scroll"><video src="clips/decomp_s7sc10_tool1_table.mp4" autoplay loop muted playsinline controls></video></div>
   </section>
 </main>
 </body>
