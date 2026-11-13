@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>S2TS2 motion decomposition on vs off</title>
+<style>
+  :root { --bg:#0f1318; --fg:#e7ebf0; --mute:#98a3b0; --line:#2a323d; }
+  @media (prefers-color-scheme: light) { :root { --bg:#f6f7f9; --fg:#161b22; --mute:#5b6572; --line:#dde1e7; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 system-ui, "Segoe UI", sans-serif; padding:28px 16px 56px; }
+  main { max-width:1500px; margin:0 auto; display:flex; flex-direction:column; gap:26px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  h2.seq { font-size:22px; border-top:1px solid var(--line); padding-top:22px; margin:0 0 -14px; }
+  h3 { font-size:17px; margin:0; }
+  p { margin:0; color:var(--mute); max-width:95ch; }
+  section { display:flex; flex-direction:column; gap:8px; }
+  .scroll { overflow-x:auto; }
+  video { display:block; width:100%; min-width:900px; background:#000; border-radius:6px; }
+  nav, .key { display:flex; flex-wrap:wrap; gap:6px 18px; }
+  nav { border-top:1px solid var(--line); padding-top:10px; margin-top:8px; }
+  .key { font-size:13.5px; color:var(--mute); }
+  .sw { display:inline-block; width:11px; height:11px; border-radius:2px; margin-right:6px; vertical-align:-1px; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Motion decomposition on vs off</h1>
+    <p>Every sequence run with and without motion decomposition on the new code (f682907), seed 0. Each clip plays the sequence twice side by side: the full model on the left, decomposition off on the right. Each side shows the input, the final render, the pixels used for tracking and the camera path against ground truth; the table under the video gives the final results for both.</p>
+    <nav><a href="#stereomis">StereoMIS</a><a href="#crcdpp">CRCD++</a><a href="index.html">All ablations</a></nav>
+  </header>
+  <div class="key">
+    <span><span class="sw" style="background:#469646"></span>Green tint: pixel used for tracking</span>
+    <span><span class="sw" style="background:#e63c3c"></span>Red: instrument, excluded</span>
+    <span><span class="sw" style="background:#f09628"></span>Orange: tissue flagged as moving, excluded</span>
+    <span><span class="sw" style="background:#888"></span>Black path: ground truth</span>
+  </div>
+  <p>The tracking mask is rebuilt from each run's log and saved labels: instruments are excluded in the current and previous frame, and the decomposer's verdict on tissue is logged every 20 frames and held in between. With decomposition off no pixel is excluded. Camera path: final estimate after Sim(3) alignment. Tissue and tool PSNR split the final render by the dataset's instrument labels. L4 runs are quality-only.</p>
+  <h2 class="seq" id="stereomis">StereoMIS</h2>
+  <p>Online segmenter. P2_7 and P2_8 show no instrument.</p>
+  <section id="p2_1">
+    <h3>StereoMIS P2_1</h3>
+    <p>200 frames, online segmenter, L4. The online segmenter finds about 62% of the instrument's pixels.</p>
+    <div class="scroll"><video src="clips/decomp_p2_1_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="p2_2">
+    <h3>StereoMIS P2_2</h3>
+    <p>200 frames, online segmenter, A100. Two instruments throughout.</p>
+    <div class="scroll"><video src="clips/decomp_p2_2_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="p2_6">
+    <h3>StereoMIS P2_6</h3>
+    <p>200 frames, online segmenter, L4. </p>
+    <div class="scroll"><video src="clips/decomp_p2_6_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="p2_7">
+    <h3>StereoMIS P2_7</h3>
+    <p>200 frames, online segmenter, L4. The decomposer never flags tissue here and the tissue warp never starts: the left map is rigid.</p>
+    <div class="scroll"><video src="clips/decomp_p2_7_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="p2_8">
+    <h3>StereoMIS P2_8</h3>
+    <p>200 frames, online segmenter, L4. The tissue warp only starts on the last frame: the left map is effectively rigid.</p>
+    <div class="scroll"><video src="clips/decomp_p2_8_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <h2 class="seq" id="crcdpp">CRCD++</h2>
+  <p>C3_001 is its first 240 frames with the online segmenter; E3_005 is the full sequence with ground-truth labels.</p>
+  <section id="c3_001">
+    <h3>CRCD++ C3_001</h3>
+    <p>First 240 frames, online segmenter, L4. Large instruments; the one sequence where decomposition also wins whole-frame PSNR.</p>
+    <div class="scroll"><video src="clips/decomp_c3_001_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+  <section id="e3_005">
+    <h3>CRCD++ E3_005</h3>
+    <p>265 frames, ground-truth labels, L4. Neither arm follows the ground-truth loop.</p>
+    <div class="scroll"><video src="clips/decomp_e3_005_table.mp4" autoplay loop muted playsinline controls></video></div>
+  </section>
+</main>
+</body>
+</html>
